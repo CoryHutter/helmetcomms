@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Program Match — September 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eef1f5;
+  --card:#ffffff;
+  --ink:#0d1b2a;
+  --ink-soft:#4a5b6b;
+  --rule:#c9d3dd;
+  --wps:#0a4e8b;
+  --down:#b0121f;
+  --up:#1d6b4a;
+  --flag:#ffd400;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --cond:"Barlow Semi Condensed",var(--sans);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.45;
+  padding:0 0 4rem;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px}
+
+/* ---- masthead ---- */
+.mast{background:var(--wps);color:#fff;padding:18px 0 16px;margin-bottom:16px}
+.mast .wrap{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.mast h1{
+  font-family:var(--cond);font-weight:700;font-size:34px;line-height:.95;
+  margin:0;letter-spacing:-.01em;
+}
+.mast .cycle{font-family:var(--cond);font-weight:600;font-size:19px;color:#a8d4ff;margin:0}
+.mast .clock{font-size:13px;color:#cfe6ff;margin:4px 0 0;width:100%}
+
+/* ---- panels ---- */
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:14px;margin-bottom:14px}
+.panel h2{font-family:var(--cond);font-weight:700;font-size:22px;margin:0 0 8px;letter-spacing:-.005em}
+.hint{font-size:14px;color:var(--ink-soft);margin:0 0 10px}
+textarea{
+  width:100%;min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:14px;line-height:1.4;padding:10px;border:1px solid var(--rule);
+  border-radius:4px;background:#fbfcfd;color:var(--ink);resize:vertical;
+}
+textarea:focus,button:focus-visible,summary:focus-visible,input:focus{outline:3px solid #f0a500;outline-offset:1px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+button{
+  font-family:var(--cond);font-weight:600;font-size:18px;
+  padding:11px 20px;border-radius:4px;border:1px solid var(--wps);
+  background:var(--wps);color:#fff;cursor:pointer;min-height:46px;
+}
+button.ghost{background:#fff;color:var(--wps)}
+button:active{transform:translateY(1px)}
+.err{color:var(--down);font-size:14px;margin-top:8px}
+
+/* ---- headline story ---- */
+.story{background:var(--ink);color:#fff;border:none}
+.story h2{color:#8fc3f2;font-size:18px;margin-bottom:6px}
+.story p{margin:0 0 10px;font-size:18px;line-height:1.4}
+.story p:last-child{margin-bottom:0}
+.story b{font-family:var(--cond);font-weight:700;font-size:23px}
+.story .neg{color:#ff9a9a}
+.story .pos{color:#8ee0b4}
+.totals{display:flex;gap:18px;flex-wrap:wrap;border-top:1px solid #2c4256;padding-top:10px;margin-top:12px;font-size:14px;color:#a9bccd}
+.totals span b{display:block;font-size:21px;color:#fff}
+
+/* ---- brand rows ---- */
+details.brand{border:1px solid var(--rule);border-radius:5px;background:var(--card);margin-bottom:8px;overflow:hidden}
+details.brand[open]{border-color:var(--wps)}
+summary{list-style:none;cursor:pointer;padding:11px 12px;display:flex;align-items:center;gap:10px}
+summary::-webkit-details-marker{display:none}
+.bname{font-family:var(--cond);font-weight:600;font-size:20px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bdelta{font-family:var(--cond);font-weight:700;font-size:20px;white-space:nowrap}
+.bdelta.d{color:var(--down)}
+.bdelta.u{color:var(--up)}
+.pct{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--ink-soft);margin-left:5px}
+.tick{width:9px;height:34px;border-radius:2px;flex:none}
+.tick.has{background:var(--wps)}
+.tick.none{background:var(--rule)}
+.body{padding:0 12px 13px;border-top:1px solid #e4e9ee}
+.money{font-size:14px;color:var(--ink-soft);margin:9px 0 12px}
+.prog{border-left:3px solid var(--wps);padding:2px 0 2px 11px;margin-bottom:14px}
+.prog h4{font-family:var(--cond);font-weight:700;font-size:18px;margin:0 0 4px}
+.prog ul{margin:0 0 7px;padding-left:17px;font-size:14.5px}
+.prog li{margin-bottom:2px}
+.pitch{background:#f4f8fc;border:1px solid #d6e5f2;border-radius:4px;padding:9px 10px;font-size:15px;margin:0}
+.pitch::before{content:"Say: ";font-family:var(--cond);font-weight:600;color:var(--wps)}
+.meta{font-size:12.5px;color:var(--ink-soft);margin:6px 0 0}
+.flagline{background:var(--flag);color:#241d00;font-weight:600;font-size:12.5px;padding:3px 7px;border-radius:3px;display:inline-block;margin-top:6px}
+.nomatch{font-size:15px;color:var(--ink-soft);margin:9px 0 0}
+
+.sec-h{font-family:var(--cond);font-weight:700;font-size:24px;margin:22px 0 9px;padding-bottom:5px;border-bottom:2px solid var(--ink)}
+.sub{font-size:14px;color:var(--ink-soft);margin:-4px 0 10px}
+
+/* ---- browse list ---- */
+#browse .prog{margin-bottom:16px}
+#browse h3{font-family:var(--cond);font-weight:700;font-size:21px;margin:16px 0 7px;color:var(--wps)}
+input[type=search]{width:100%;padding:11px;font-size:16px;border:1px solid var(--rule);border-radius:4px;margin-bottom:6px}
+.hidden{display:none}
+@media (prefers-reduced-motion:no-preference){
+  details.brand[open] .body{animation:drop .16s ease-out}
+  @keyframes drop{from{opacity:0}to{opacity:1}}
+}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="wrap">
+    <h1>Program Match</h1>
+    <p class="cycle">September 2026</p>
+    <p class="clock" id="clock"></p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="panel">
+    <h2>Paste the import file</h2>
+    <p class="hint">Brand, this year, last year — tab or comma separated. Header row optional.</p>
+    <textarea id="in" spellcheck="false" placeholder="Brand&#9;Sales This Year&#9;Sales Last Year"></textarea>
+    <div class="row">
+      <button id="go">Match programs</button>
+      <button class="ghost" id="clr">Clear</button>
+    </div>
+    <p class="err hidden" id="err"></p>
+  </div>
+
+  <div id="out"></div>
+
+  <h2 class="sec-h">All live programs</h2>
+  <p class="sub">Everything running now, whether or not it's in the file.</p>
+  <div class="panel">
+    <input type="search" id="find" placeholder="Search brand or product" aria-label="Search programs">
+    <div id="browse"></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   PROGRAM DATA — September 2026 cycle
+   Source: WPS September Monthly Specials, pages 1–16,
+   plus the Fire Power Jug & Hose program (updated Aug 2026).
+   ============================================================ */
+const CYCLE_END = new Date(2026, 8, 30); // Sep 30 2026
+
+const DATA = [
+{
+  brand:"100%",
+  aliases:["100","100PERCENT","ONEHUNDREDPERCENT"],
+  programs:[
+    {
+      title:"Fall goggle program — order and get free",
+      bullets:[
+        "100 goggles → 20 free",
+        "50 goggles → 8 free",
+        "26 goggles → 4 free",
+        "Current goggles only. Lowest-priced units on the order come off the invoice.",
+        "Limit 4 goggle programs per account. Order must be 75%+ shippable; backorders ship when available.",
+        "POP kits: email a copy of the invoice to sbeauchamp@100percent.com."
+      ],
+      pitch:"Twenty-six goggles gets you four free. Fifty gets eight. It's the cheapest four or eight on the order, so build the order deep and you're buying goggles at a real discount.",
+      ends:"Sept 30, 2026", request:true, nocombine:true
+    },
+    {
+      title:"Fall glove program — order and get free",
+      bullets:[
+        "80 gloves → 20 free",
+        "54 gloves → 12 free",
+        "36 gloves → 6 free",
+        "Current gloves only. Lowest-priced units come off the invoice.",
+        "Limit 4 glove programs per account."
+      ],
+      pitch:"Thirty-six gloves and six are free. That's the entry tier — most shops can hit it on a fall fill-in.",
+      ends:"Sept 30, 2026", request:true, nocombine:true
+    },
+    {
+      title:"Softgoods pre-order — jackets, shirts, hats, socks",
+      bullets:[
+        "Buy 30 → 10 free · Buy 20 → 5 free · Buy 10 → 2 free",
+        "Any jackets, any shirts, any hats, any socks — each category counts on its own.",
+        "Pre-order now, ships October 8. Images available Sept 8.",
+        "Free items are the lowest-priced in that category."
+      ],
+      pitch:"Softgoods pre-order is open and it runs through October. Buy ten, get two — that's a 20% margin bump on tee shirts and hats you'd stock anyway.",
+      ends:"Oct 31, 2026", request:true, nocombine:true
+    }
+  ]
+},
+{
+  brand:"Bel-Ray",
+  aliases:["BELRAY"],
+  programs:[
+    {
+      title:"55-gallon drum pricing",
+      bullets:[
+        "10w40 · WPS# 840-0020 · list $1,019.95 → $660.00",
+        "20w50 · WPS# 840-0021 · list $1,449.55 → $900.00",
+        "Ships free freight. Lift gate is extra — $45 if the delivery needs one.",
+        "Applies to these two part numbers only."
+      ],
+      pitch:"If they run bulk oil at all, this is the month. The 10w40 drum is $660 against a $1,019 list. Just make sure they have a dock or budget the forty-five for a lift gate.",
+      ends:"Sept 30, 2026"
+    }
+  ]
+},
+{
+  brand:"Bridgestone",
+  aliases:["BRIDGESTONE"],
+  programs:[
+    {
+      title:"All tires — buy 5, get 1 free",
+      bullets:[
+        "Every Bridgestone tire qualifies. The least expensive tire on the order is free.",
+        "Stacks with dealer lock-in discounts.",
+        "No backorders."
+      ],
+      pitch:"Buy five, sixth is free, and it stacks on top of your lock-in — that's the only one this month that combines. Whole line qualifies, so mix street and dirt however you want.",
+      ends:"Sept 30, 2026", request:true
+    }
+  ]
+},
+{
+  brand:"FLO Motorsports",
+  aliases:["FLOMOTORSPORTS","FLOMOTO"],
+  programs:[
+    {
+      title:"8% off select pegs, mini boards and floorboards",
+      bullets:[
+        "Qualifying list is on the flyer link — or I've got it in the truck."
+      ],
+      pitch:"Eight off the pegs and floorboards. Easy add-on when someone's already buying bars or controls.",
+      ends:"Sept 30, 2026", request:true
+    }
+  ]
+},
+{
+  brand:"Fox (suspension)",
+  aliases:["FOXSHOX","FOXFACTORY","FOXRACINGSHOX","FOX"],
+  programs:[
+    {
+      title:"8% off select Indian shocks",
+      bullets:[
+        "897-27023 QS3-QSR piggyback, Scout std spring — $1,279.99",
+        "897-27024 QS3-QSR piggyback, Scout +1\" std — $1,279.99",
+        "897-27025 QS3-QSR piggyback, Scout std 25-up — $1,279.99",
+        "897-27429 QS3/QSR dual adjust +1\", lite spring 25-26 Scout — $1,279.99",
+        "897-27430 QS3/QSR dual adj, lite spring 15-24 Scout — $1,279.99",
+        "897-27431 QS3/QSR dual adjust, lite spring 25-26 Scout — $1,279.99",
+        "897-27432 Indian grip cartridge std, 41mm 15-26 Scout non-inverted — $639.99"
+      ],
+      pitch:"Scout suspension is 8% off. If they've got Scouts sitting on the floor, one set on a demo bike sells the next three.",
+      ends:"Sept 30, 2026", request:true
+    }
+  ]
+},
+{
+  brand:"HardDrive",
+  aliases:["HARDDRIVE"],
+  programs:[
+    {
+      title:"8% off select touring shocks and cartridge kits",
+      bullets:[
+        "Scepter cartridge kits 49mm, FLH/FLT 14-24 — std, med, hvy — $449.39 (890-01210/11/12)",
+        "Scepter +2\" cartridge kits 49mm — std, med, hvy — $449.39 (890-01213/14/15)",
+        "Touring remote res shocks, 13\" and 14\", std and hvy, billet bracket — $1,037.79 (890-01175 through 01178)"
+      ],
+      pitch:"Front and rear on a bagger for under fifteen hundred dealer, eight percent off this month. Good service-department upsell going into fall riding.",
+      ends:"Sept 30, 2026"
+    }
+  ]
+},
+{
+  brand:"Klotz",
+  aliases:["KLOTZ"],
+  programs:[
+    {
+      title:"Gallons — buy 7, get 1 free",
+      bullets:[
+        "Case quantity only, no mix and matching, no backorder.",
+        "842-0012 Super Techniplate · 842-0018 R50 Techniplate · 842-0024 Benol racing castor",
+        "842-0028 TC-W2 motorcycle · 842-0071 TC-W3 snow · 842-0081 TC-W3 SkiCraft",
+        "842-0083 2T outboard · 842-0181 motorcycle 2T syn TC-W3"
+      ],
+      pitch:"Buy seven gallons, eighth is free — but it's one part number per case, no mixing. Pick their fastest mover and go deep on that one.",
+      ends:"Sept 30, 2026", request:true
+    },
+    {
+      title:"Bottles — buy 8, get 2 free",
+      bullets:[
+        "Case quantity only, no mix and matching, no backorder.",
+        "842-0011 Super · 842-0017 R50 · 842-0023 Benol · 842-0027 TC-W2 · 842-0031 TC-W3 moto",
+        "842-0034 TC-W3 2T 50:1 (16oz) · 842-0070 TC-W3 snow · 842-0080 SkiCraft · 842-0082 outboard 2T"
+      ],
+      pitch:"Eight bottles gets two free — that's 25% on the shelf stock. Snowmobile oil now, before the first cold snap sells them out.",
+      ends:"Sept 30, 2026", request:true
+    }
+  ]
+},
+{
+  brand:"Rheon",
+  aliases:["RHEON"],
+  programs:[
+    {
+      title:"10% off Level 1 armor",
+      bullets:[
+        "667-00100 Level 1 Type B hip/shoulder, pair — list $34.95, dealer $22.71",
+        "667-00108 Level 1 Type B shoulder curved, pair — list $39.95, dealer $25.96",
+        "Universal fit."
+      ],
+      pitch:"Cheap counter add-on with real margin. Every jacket sale is an armor upgrade if it's sitting by the register.",
+      ends:"Sept 30, 2026"
+    }
+  ]
+},
+{
+  brand:"RST",
+  aliases:["RST"],
+  programs:[
+    {
+      title:"15% off select boots",
+      bullets:[
+        "Roadster 3 CE · Sabre Moto CE WP shoe · Adventure-X CE · Tractech Evo D3O WP and WP short",
+        "Hitop Moto CE WP shoe · Womens Axiom CE · Pathfinder CE",
+        "Full qualifying list on the flyer link."
+      ],
+      pitch:"Fifteen off the whole boot run. Riding season's not over here — this is the last good window before they stop buying footwear.",
+      ends:"Sept 30, 2026"
+    },
+    {
+      title:"15% off select jackets",
+      bullets:[
+        "PS Paragon D3O · S1 D3O textile · Roadster Air D3O · Hillberry D3O · Brixton D3O",
+        "Maverick Evo CE · PS Vulcan CE · Womens PS Paragon D3O · Womens Roadster Air D3O"
+      ],
+      pitch:"Jackets at fifteen off heading into fall — this is the month people start shopping for a warmer coat.",
+      ends:"Sept 30, 2026"
+    },
+    {
+      title:"15% off select gloves",
+      bullets:[
+        "Adventure-X CE · Artic D3O WP · Vega WP · Tractech Evo 4 short CE · S1",
+        "Fulcrum CE · Atlas CE WP · Freestyle 3 D3O · IOM TT Hillberry 2 CE",
+        "Womens Axiom CE WP · Pro Series Ranger CE · Womens Artic D3O WP · K-Sport WP"
+      ],
+      pitch:"Waterproof gloves at fifteen off, right before the weather turns. Artic and Atlas are the two to stock.",
+      ends:"Sept 30, 2026"
+    },
+    {
+      title:"15% off select pants",
+      bullets:[
+        "Maverick Evo CE jean · Maverick Evo short leg CE jean · RST Lumberjack CE",
+        "PS Paragon D3O LL · PS Vulcan CE · S1 D3O textile"
+      ],
+      pitch:"Round out the RST buy with pants — same fifteen, and the Lumberjack shirt sells itself in September.",
+      ends:"Sept 30, 2026", request:true
+    }
+  ]
+},
+{
+  brand:"Scorpion EXO",
+  aliases:["SCORPIONEXO","SCORPION"],
+  programs:[
+    {
+      title:"15% off Ryzer helmets",
+      bullets:[
+        "Gloss black 75-2310 XS-2X and gloss white 75-2311 S-2X — $107.22 dealer, $164.95 list",
+        "Matte black 75-2312 — $114.37 / $175.95",
+        "Edge red, hi-viz, pink, dark grey and Switch blue/hi-viz, phantom, white/grey — $129.97 / $199.95"
+      ],
+      pitch:"Ryzer at a hundred seven dealer against a one sixty-five list. That's the helmet to put on the wall at $199 and still make money at $164.",
+      ends:"Sept 30, 2026"
+    },
+    {
+      title:"15% off Optima II jacket",
+      bullets:[
+        "Black 75-5084, grey 75-5085, hi-vis 75-5086",
+        "S-XL $217.72 dealer / $334.95 list · 2X-3X $237.22 / $364.96"
+      ],
+      pitch:"Optima II is the do-everything three-season jacket. Fifteen off going into fall is the right time to bring in the hi-vis.",
+      ends:"Sept 30, 2026"
+    },
+    {
+      title:"15% off Tempest gloves",
+      bullets:[
+        "Tempest Short 75-6127, S-3X — dealer $61.72, list $94.95",
+        "Tempest II 75-6126, S-3X — dealer $71.47, list $109.95"
+      ],
+      pitch:"Tempest gloves at fifteen off — pair them with the Optima and you've got a whole cold-weather setup on one ticket.",
+      ends:"Sept 30, 2026"
+    }
+  ]
+},
+{
+  brand:"Santoro Fabworx",
+  aliases:["SANTOROFABWORX","SANTORO"],
+  programs:[
+    {
+      title:"12% off select bag deletes",
+      bullets:[
+        "750-03109 Chonies bag deletes, carbon dip — $415.99 dealer",
+        "750-03108 Chonies bag deletes, ABS — $215.00 dealer",
+        "No backorders, while supplies last."
+      ],
+      pitch:"Twelve off the Chonies bag deletes. It's a while-supplies-last deal, so if they want them they should say so today.",
+      ends:"Sept 30, 2026", request:true
+    },
+    {
+      title:"12% off select lightbar engine crash bars",
+      bullets:[
+        "750-03130 black FLH/FLT 14-E23 — $1,017.60 dealer",
+        "750-03131 black FLH/FLT L23CVO, 24-26 — $1,017.60 dealer",
+        "No backorders, while supplies last."
+      ],
+      pitch:"Crash bars with the lights built in, twelve off. High-ticket, high-margin, and it goes on the bike in the service bay.",
+      ends:"Sept 30, 2026", request:true
+    }
+  ]
+},
+{
+  brand:"System 3 Off-Road",
+  aliases:["SYSTEM3OFFROAD","SYSTEM3","SYSTEMTHREE"],
+  programs:[
+    {
+      title:"Extra 5% on tires, on top of lock-in",
+      bullets:[
+        "SS360, SS365 and ATX470 tires.",
+        "Excludes wheel kits."
+      ],
+      pitch:"Extra five on top of your lock-in for SS360, SS365 and ATX470. Side-by-side tires are a fall item here — this is the buy.",
+      ends:"Sept 30, 2026", request:true
+    },
+    {
+      title:"Extra 5% on SB8 wheels, on top of lock-in",
+      bullets:["SB8 wheels."],
+      pitch:"Same extra five on SB8 wheels. Wheel and tire together and the whole package moves.",
+      ends:"Sept 30, 2026", request:true
+    }
+  ]
+},
+{
+  brand:"All Balls Racing",
+  aliases:["ALLBALLSRACING","ALLBALLS"],
+  programs:[
+    {
+      title:"Spend $750, pick a store fixture",
+      bullets:[
+        "Any All Balls Racing branded product counts toward the $750.",
+        "Pick one: slat wall graphics, floor mat, polos (4 per program), or wall tin.",
+        "Scan the QR code on the flyer to redeem — it doesn't apply on the order.",
+        "New items added monthly."
+      ],
+      pitch:"Seven fifty in All Balls and they pick a floor mat or a set of polos. Most shops hit that on bearings and seals without trying — I'll scan the code for you.",
+      ends:"Oct 31, 2026", request:true
+    }
+  ]
+},
+{
+  brand:"Fire Power",
+  aliases:["FIREPOWER"],
+  programs:[
+    {
+      title:"Jug and hose program — ongoing",
+      bullets:[
+        "Jugs list $39.95: 300-00900 white, 300-00903 green, 300-00902 orange, 300-00901 black.",
+        "4-16 jugs: no discount, but a free push-in filler hose with each jug (300-10002).",
+        "20-56 jugs: up to 5% off plus the free hose with each.",
+        "60+ (multiples of 60, pallet quantities): up to 10% off plus the free hose with each.",
+        "All tiers order in multiples of 4 of the same color.",
+        "Upgrade hoses instead: screw cap 300-10003 at $3.25, reinforced screw cap 300-10012 at $4.25."
+      ],
+      pitch:"Four jugs and the hoses are free — that's nine bucks list per jug they're not paying for. Twenty jugs and you're 5% off on top.",
+      ends:"No end date", request:true
+    }
+  ]
+}
+];
+
+/* ============================================================
+   Matching
+   ============================================================ */
+const norm = s => (s||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+
+function matchPrograms(reportBrand){
+  const n = norm(reportBrand);
+  if(!n) return null;
+  for(const entry of DATA){
+    for(const a of entry.aliases){
+      if(n === a) return entry;
+      if(a.length >= 4 && (n.startsWith(a) || n.includes(a))) return entry;
+    }
+  }
+  return null;
+}
+
+function parseMoney(v){
+  if(v == null) return NaN;
+  let s = String(v).trim();
+  let neg = /^\(.*\)$/.test(s) || s.startsWith("-");
+  s = s.replace(/[()\-]/g,"").replace(/[$,\s]/g,"");
+  if(s === "") return NaN;
+  const n = parseFloat(s);
+  if(isNaN(n)) return NaN;
+  return neg ? -n : n;
+}
+
+function parseInput(text){
+  const rows = [];
+  const lines = text.split(/\r?\n/);
+  for(const line of lines){
+    if(!line.trim()) continue;
+    const cells = line.includes("\t") ? line.split("\t") : line.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
+    if(cells.length < 3) continue;
+    const brand = cells[0].replace(/^"|"$/g,"").trim();
+    if(!brand) continue;
+    const ty = parseMoney(cells[1]), ly = parseMoney(cells[2]);
+    if(isNaN(ty) || isNaN(ly)) continue;      // drops the header row
+    if(/^totals?$/i.test(brand)) continue;    // drops a pasted totals line
+    rows.push({brand, ty, ly, delta: ty - ly});
+  }
+  return rows;
+}
+
+const usd = n => (n<0?"-":"") + "$" + Math.abs(Math.round(n)).toLocaleString();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function progHTML(p){
+  let h = '<div class="prog"><h4>' + esc(p.title) + "</h4><ul>";
+  p.bullets.forEach(b => h += "<li>" + esc(b) + "</li>");
+  h += '</ul><p class="pitch">' + esc(p.pitch) + "</p>";
+  h += '<p class="meta">Ends ' + esc(p.ends);
+  if(p.nocombine) h += " · doesn't combine with other discounts";
+  h += "</p>";
+  if(p.request) h += '<span class="flagline">Won\'t apply automatically — ask for it by name</span>';
+  return h + "</div>";
+}
+
+function brandRow(r){
+  const entry = matchPrograms(r.brand);
+  const down = r.delta < 0;
+  const pctBase = r.ly !== 0 ? Math.round(Math.abs(r.delta)/Math.abs(r.ly)*100) : null;
+  let h = '<details class="brand"><summary>';
+  h += '<span class="tick ' + (entry ? "has" : "none") + '"></span>';
+  h += '<span class="bname">' + esc(r.brand) + "</span>";
+  h += '<span class="bdelta ' + (down?"d":"u") + '">' + usd(r.delta);
+  if(pctBase !== null) h += '<span class="pct">' + (down?"−":"+") + pctBase + "%</span>";
+  h += "</span></summary><div class=\"body\">";
+  h += '<p class="money">' + usd(r.ty) + " this year vs " + usd(r.ly) + " last year</p>";
+  if(entry){
+    entry.programs.forEach(p => h += progHTML(p));
+  } else {
+    h += '<p class="nomatch">No September program on this brand. If it\'s a real decline, it\'s a stocking conversation, not a promo one — ask what replaced it on the shelf.</p>';
+  }
+  return h + "</div></details>";
+}
+
+function render(rows){
+  const out = document.getElementById("out");
+  if(!rows.length){
+    out.innerHTML = '<div class="panel"><h2>Nothing to match</h2><p class="hint">The paste needs three columns: brand, this year, last year. Check that the numbers came through.</p></div>';
+    return;
+  }
+  const sorted = rows.slice().sort((a,b) => a.delta - b.delta);
+  const declines = sorted.filter(r => r.delta < 0);
+  const growth = sorted.filter(r => r.delta > 0).reverse();
+  const flat = sorted.filter(r => r.delta === 0);
+
+  const totalTY = rows.reduce((s,r)=>s+r.ty,0);
+  const totalLY = rows.reduce((s,r)=>s+r.ly,0);
+  const netDelta = totalTY - totalLY;
+  const declineSum = declines.reduce((s,r)=>s+r.delta,0);
+
+  let story = "";
+  if(declines.length){
+    const top = declines[0];
+    const share = Math.round(Math.abs(top.delta)/Math.abs(declineSum)*100);
+    story += "<p>" + esc(top.brand) + " is <b class=\"neg\">" + usd(top.delta) + "</b> and that's " +
+      share + "% of everything you lost. ";
+    if(share >= 50) story += "Fix that one line and the year mostly fixes itself.";
+    else story += "It's the biggest piece, but the loss is spread — plan on three conversations, not one.";
+    story += "</p>";
+  } else {
+    story += "<p>No brand is down year over year. Nice book.</p>";
+  }
+  if(growth.length){
+    const g = growth[0];
+    story += "<p>Best growth is " + esc(g.brand) + " at <b class=\"pos\">+" + usd(g.delta).replace("$","$") + "</b>. Lead with that before you bring up the rest.</p>";
+  }
+  story = '<div class="panel story"><h2>The read</h2>' + story +
+    '<div class="totals">' +
+      "<span>This year<b>" + usd(totalTY) + "</b></span>" +
+      "<span>Last year<b>" + usd(totalLY) + "</b></span>" +
+      "<span>Net<b class=\"" + (netDelta<0?"neg":"pos") + "\">" + (netDelta>=0?"+":"") + usd(netDelta) + "</b></span>" +
+      "<span>Brands<b>" + rows.length + "</b></span>" +
+    "</div></div>";
+
+  let h = story;
+  if(declines.length){
+    h += '<h2 class="sec-h">Down — biggest dollars first</h2>';
+    h += '<p class="sub">' + declines.filter(r=>matchPrograms(r.brand)).length + " of " + declines.length + " have a program running this month.</p>";
+    declines.forEach(r => h += brandRow(r));
+  }
+  if(growth.length){
+    h += '<h2 class="sec-h">Up</h2><p class="sub">Open with these.</p>';
+    growth.forEach(r => h += brandRow(r));
+  }
+  if(flat.length){
+    h += '<h2 class="sec-h">Flat</h2>';
+    flat.forEach(r => h += brandRow(r));
+  }
+  out.innerHTML = h;
+  out.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+/* ---- browse all ---- */
+function renderBrowse(){
+  let h = "";
+  DATA.forEach(e => {
+    h += '<div class="bgroup" data-key="' + esc((e.brand + " " + e.programs.map(p=>p.title + " " + p.bullets.join(" ")).join(" ")).toLowerCase()) + '">';
+    h += "<h3>" + esc(e.brand) + "</h3>";
+    e.programs.forEach(p => h += progHTML(p));
+    h += "</div>";
+  });
+  document.getElementById("browse").innerHTML = h;
+}
+
+document.getElementById("find").addEventListener("input", function(){
+  const q = this.value.trim().toLowerCase();
+  document.querySelectorAll("#browse .bgroup").forEach(g => {
+    g.classList.toggle("hidden", q !== "" && !g.dataset.key.includes(q));
+  });
+});
+
+/* ---- controls ---- */
+document.getElementById("go").addEventListener("click", () => {
+  const txt = document.getElementById("in").value;
+  const err = document.getElementById("err");
+  const rows = parseInput(txt);
+  if(!rows.length){
+    err.textContent = "Couldn't read any brand rows. Paste the whole import file including the numbers.";
+    err.classList.remove("hidden");
+    return;
+  }
+  err.classList.add("hidden");
+  render(rows);
+  try { window.storage.set("pm:last", txt); } catch(e){}
+});
+
+document.getElementById("clr").addEventListener("click", () => {
+  document.getElementById("in").value = "";
+  document.getElementById("out").innerHTML = "";
+  document.getElementById("err").classList.add("hidden");
+  try { window.storage.delete("pm:last"); } catch(e){}
+});
+
+/* ---- clock ---- */
+(function(){
+  const now = new Date();
+  const days = Math.ceil((CYCLE_END - now) / 86400000);
+  const el = document.getElementById("clock");
+  if(days > 1) el.textContent = days + " days left in the cycle — everything below expires Sept 30 unless noted.";
+  else if(days === 1) el.textContent = "Last day of the cycle. Orders have to be in today.";
+  else if(days === 0) el.textContent = "Cycle ends today.";
+  else el.textContent = "This cycle has ended. Load the current month's specials.";
+})();
+
+renderBrowse();
+
+/* ---- restore last paste ---- */
+(async function(){
+  try{
+    const r = await window.storage.get("pm:last");
+    if(r && r.value){
+      document.getElementById("in").value = r.value;
+      const rows = parseInput(r.value);
+      if(rows.length) render(rows);
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
