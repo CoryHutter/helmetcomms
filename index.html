@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helmet Comms — Motorcycle Intercom Compatibility &amp; Comparison</title>
+<meta name="description" content="Check whether two motorcycle intercoms will actually talk to each other, then compare every current Cardo and Sena system side by side.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eceef1; --card:#f8f9fa; --ink:#14181d; --ink-soft:#5c6672; --rule:#d3d8de;
+  --mesh:#146b66; --mesh-bg:#dceceb; --bt:#2b4fa8; --bt-bg:#dde3f3;
+  --signal:#c9432a; --warn-bg:#f7e6df; --deal:#8a5a00; --deal-bg:#f7eed6;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;font-stretch:105%;line-height:1.05;margin:0}
+h1{font-weight:800;font-size:clamp(2.1rem,7vw,3.6rem);letter-spacing:-.02em}
+h2{font-weight:700;font-size:clamp(1.4rem,4.4vw,2rem);letter-spacing:-.015em}
+h3{font-weight:600;font-size:1.05rem}
+p{margin:.65em 0}
+a{color:var(--signal)}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px}
+section{padding:52px 0;border-top:1px solid var(--rule)}
+section:first-of-type{border-top:0}
+.lede{color:var(--ink-soft);max-width:60ch;font-size:1.03rem}
+.masthead{padding:26px 0 6px}
+.mark{font-family:Archivo;font-weight:800;font-size:1.05rem;letter-spacing:-.01em}
+.mark span{color:var(--signal)}
+.hero{padding-top:26px}
+.hero h1{max-width:15ch}
+.hero .lede{margin-top:14px}
+.checker{margin-top:30px;background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:22px}
+.pickrow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.pickrow{grid-template-columns:1fr}}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:5px}
+select{width:100%;padding:11px 12px;font:inherit;font-size:.95rem;background:#fff;color:var(--ink);border:1px solid var(--rule);border-radius:2px}
+select:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.verdict{margin-top:20px;border-top:1px solid var(--rule);padding-top:18px}
+.verdict-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.badge{font-family:Archivo;font-weight:700;font-size:.78rem;padding:4px 9px;border-radius:2px;white-space:nowrap}
+.b-full{background:var(--mesh-bg);color:var(--mesh)}
+.b-part{background:var(--warn-bg);color:var(--signal)}
+.b-none{background:#e6e2df;color:#6b5b53}
+.verdict h3{margin:0}
+.verdict p{margin:.5em 0 0;color:var(--ink-soft);font-size:.95rem;max-width:62ch}
+.diagram{display:flex;align-items:center;margin:16px 0 4px;font-size:.8rem;flex-wrap:wrap}
+.node{border:1px solid var(--ink);padding:6px 10px;border-radius:2px;font-weight:600;background:#fff}
+.link{flex:1;min-width:60px;height:2px;background:var(--rule)}
+.link.on{background:var(--mesh)}
+.link.weak{background:repeating-linear-gradient(90deg,var(--signal) 0 5px,transparent 5px 10px)}
+.link.off{background:repeating-linear-gradient(90deg,#b9bfc7 0 3px,transparent 3px 8px)}
+.linklabel{font-size:.72rem;color:var(--ink-soft);text-align:center;margin-top:6px}
+.q{margin-bottom:18px}
+.q>span{display:block;font-weight:600;font-size:.95rem;margin-bottom:8px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{font:inherit;font-size:.88rem;padding:8px 13px;cursor:pointer;background:#fff;border:1px solid var(--rule);border-radius:2px;color:var(--ink)}
+.opt[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.picks{margin-top:24px;display:grid;gap:12px}
+.pick{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--signal);padding:16px;border-radius:2px}
+.pick .why{font-size:.9rem;color:var(--ink-soft);margin:.4em 0 .8em}
+.pick .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.price{font-family:Archivo;font-weight:600;white-space:nowrap}
+.was{font-weight:400;color:var(--ink-soft);text-decoration:line-through;font-size:.85em;margin-right:5px}
+.cta{display:inline-block;background:var(--signal);color:#fff;text-decoration:none;font-weight:600;font-size:.88rem;padding:9px 16px;border-radius:2px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.88rem}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--rule);vertical-align:middle}
+th{font-family:Archivo;font-weight:600;font-size:.8rem;color:var(--ink-soft);background:#fff}
+tr.row{cursor:pointer}
+tr.row:hover td{background:#fff}
+tr.row[aria-expanded="true"] td{background:#fff}
+.chev{display:inline-block;width:9px;height:9px;border-right:2px solid var(--ink-soft);border-bottom:2px solid var(--ink-soft);transform:rotate(45deg);transition:transform .15s;margin-left:2px}
+tr.row[aria-expanded="true"] .chev{transform:rotate(-135deg)}
+@media(prefers-reduced-motion:reduce){.chev{transition:none}}
+.detail td{background:#fff;padding:0 12px 18px}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 22px;margin:4px 0 14px}
+.spec dt{font-size:.72rem;color:var(--ink-soft);font-weight:600;margin-bottom:2px}
+.spec dd{margin:0;font-size:.9rem}
+.detail .note{margin:0 0 14px;background:none;border:0;padding:0;font-size:.9rem;color:var(--ink-soft);max-width:62ch}
+.tag{font-size:.72rem;font-weight:600;padding:2px 7px;border-radius:2px;white-space:nowrap}
+.t-mesh{background:var(--mesh-bg);color:var(--mesh)}
+.t-bt{background:var(--bt-bg);color:var(--bt)}
+.t-deal{background:var(--deal-bg);color:var(--deal)}
+.model{font-weight:600}
+.brand{color:var(--ink-soft);font-size:.8rem;display:block}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:20px}
+@media(max-width:620px){.split{grid-template-columns:1fr}}
+.col h3{margin-bottom:6px}
+.col p{font-size:.95rem;color:var(--ink-soft)}
+.col.mesh h3{color:var(--mesh)}
+.col.bt h3{color:var(--bt)}
+ul{padding-left:1.1em;font-size:.95rem;color:var(--ink-soft)}
+li{margin:.35em 0}
+footer{border-top:1px solid var(--rule);padding:30px 0 60px;font-size:.85rem;color:var(--ink-soft)}
+.note{background:var(--warn-bg);border:1px solid #e6c9bd;padding:12px 14px;border-radius:2px;font-size:.85rem;margin-top:18px}
+.hint{font-size:.82rem;color:var(--ink-soft);margin-top:12px}
+</style>
+</head>
+<body>
+
+<header class="wrap masthead">
+  <div class="mark">HELMET<span>COMMS</span></div>
+</header>
+
+<main>
+<section class="wrap hero">
+  <h1>Will these two intercoms actually talk to each other?</h1>
+  <p class="lede">The question nobody answers before you've already bought. Pick your unit and your riding partner's, and find out what you'll really get.</p>
+  <div class="checker">
+    <div class="pickrow">
+      <div class="field"><label for="unitA">Your unit</label><select id="unitA"></select></div>
+      <div class="field"><label for="unitB">Their unit</label><select id="unitB"></select></div>
+    </div>
+    <div class="verdict" id="verdict" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Find the right system</h2>
+  <p class="lede">Three questions. No email required.</p>
+  <div id="finder" style="margin-top:22px"></div>
+  <div class="picks" id="picks"></div>
+</section>
+
+<section class="wrap">
+  <h2>Every current system, side by side</h2>
+  <div class="filters" id="filters" style="margin-top:18px"></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th>System</th><th>Network</th><th>Riders</th><th>Range</th><th>Price</th><th></th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <p class="hint">Tap any row for full specs — talk time, charging, audio and waterproofing.</p>
+  <p class="hint">Range is the manufacturer's rider-to-rider claim in open terrain. With hills, trees or buildings between you, expect a fraction of it. Mesh groups extend further than the two-rider number because riders in the middle relay the signal.</p>
+</section>
+
+<section class="wrap">
+  <h2>Mesh or Bluetooth?</h2>
+  <p class="lede">This is the only spec that changes how a group ride actually feels. Everything else is preference.</p>
+  <div class="split">
+    <div class="col mesh">
+      <h3>Mesh</h3>
+      <p>Every unit is a relay. Riders drop out and rejoin on their own, and the group heals itself when someone falls behind or shuts down. No pairing chain to rebuild at the gas stop.</p>
+      <ul>
+        <li>Worth it from three riders up</li>
+        <li>Range extends as the group grows — riders in the middle pass the signal along</li>
+        <li>Costs more, and only talks to the same brand's mesh</li>
+      </ul>
+    </div>
+    <div class="col bt">
+      <h3>Bluetooth</h3>
+      <p>Units pair to each other in a fixed chain. If a rider in the middle drops off, everyone behind them goes quiet until it's rebuilt by hand.</p>
+      <ul>
+        <li>Fine for two riders, or rider and passenger</li>
+        <li>Works across brands — Cardo talks to Sena this way</li>
+        <li>Half the price of a mesh unit</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note"><strong>The mixed-brand reality:</strong> a Cardo and a Sena can connect, but only over Bluetooth, and only two at a time. Neither one joins the other's mesh. If your regular group has already committed to a brand, that decision is effectively made for you.</div>
+</section>
+
+<section class="wrap">
+  <h2>Battery, charging, and what the numbers leave out</h2>
+  <p class="lede">Three things worth knowing before you compare talk-time figures across brands.</p>
+  <ul style="margin-top:16px;max-width:62ch">
+    <li><strong>Mesh eats more battery than Bluetooth.</strong> Sena publishes two talk-time figures per unit and they aren't close — the 60S EVO runs 27 hours on Bluetooth but 19 on mesh. If you ride in a mesh group, the mesh number is your real number.</li>
+    <li><strong>Full charge time is a wash.</strong> Every unit here lands between 1.5 and 2.5 hours. It's not a reason to choose one over another.</li>
+    <li><strong>Fast charge is where they actually differ.</strong> Twenty minutes on a Cardo Packtalk buys 2 hours of talk. The same twenty minutes on a Sena 50R buys 6 hours of Bluetooth or 3.5 of mesh. On a long day with a lunch stop, that gap is the whole afternoon.</li>
+  </ul>
+</section>
+
+<section class="wrap">
+  <h2>Will it fit your helmet?</h2>
+  <p class="lede">Fitment kills more of these purchases than price does. Three things to check before you order.</p>
+  <ul style="margin-top:16px;max-width:62ch">
+    <li><strong>Speaker pocket depth.</strong> Shallow ear pockets press 40&nbsp;mm and 45&nbsp;mm speakers into your ears on hour three. Some helmets need the slim speaker option.</li>
+    <li><strong>Mount type.</strong> Clamp mounts need a gap between shell and liner, which some tight-fitting helmets don't have. Adhesive mounts work anywhere but commit you to that helmet.</li>
+    <li><strong>Built-in comms cavity.</strong> Shoei, HJC, Schuberth and others have a dedicated pocket that only accepts a matched unit — Cardo's Packtalk-S and 4X-S for Shoei, Sena's SRL2. Cleaner install, no universal option.</li>
+  </ul>
+</section>
+</main>
+
+<footer class="wrap">
+  <p>Specs come from manufacturer published data. Prices are manufacturer direct and were current as of the last update — promotions move fast, so check the live price before you buy.</p>
+  <p>Some links here are affiliate links. If you buy through one, we earn a commission at no extra cost to you. It doesn't change which systems we recommend.</p>
+</footer>
+
+<script>
+/* ============================================================
+   PRODUCT DATA — edit this block only.
+
+   Verified against cardosystems.com, store-us.sena.com and
+   sena.com product spec pages.
+
+   "Check spec" = not confirmed from the manufacturer's own page.
+   Fill these in before publishing rather than guessing.
+
+   NOTE ON SENA TALK TIME: Sena publishes different figures on
+   their store, product pages and manuals for the same unit.
+   Numbers below come from sena.com product spec sheets. Pick one
+   source and stay with it so your table stays internally consistent.
+
+   protocol:  "dmc2"     Cardo 2nd-gen Dynamic Mesh
+              "senaMesh" Sena Mesh (version "3.0" / "2.0")
+              "bt"       Bluetooth intercom only
+
+   url: replace with YOUR tracked affiliate link once approved.
+        Never paste a URL containing gclid= or utm_source= —
+        that credits the brand's own ad spend, not you.
+   ============================================================ */
+const PRODUCTS = [
+  /* ---------------- CARDO ---------------- */
+  {brand:"Cardo", model:"Packtalk Pro", protocol:"dmc2", version:"DMC 2nd gen", riders:"15",
+   range:"1.6 km / 1 mi", talkMesh:"13 hr", talkBt:"13 hr", charge:"1.5–2 hr", fast:"20 min → 2 hr talk",
+   audio:"JBL 45 mm", ip:"IP67", mount:"Magnetic Air Mount", price:499.95, list:null,
+   note:"Crash detection with automatic emergency alerts, plus auto on/off. Cardo's flagship and the one to buy if you often ride alone.",
+   url:"https://cardosystems.com/products/packtalk-pro"},
+
+  {brand:"Cardo", model:"Packtalk Edge", protocol:"dmc2", version:"DMC 2nd gen", riders:"15",
+   range:"1.6 km / 1 mi", talkMesh:"13 hr", talkBt:"13 hr", charge:"1.5–2 hr", fast:"20 min → 2 hr talk",
+   audio:"JBL 40 mm", ip:"IP67", mount:"Magnetic Air Mount", price:439.95, list:null,
+   note:"Same mesh network as the Pro, same magnetic mount, less money. The sweet spot of the Cardo line. Standby time is 10 days.",
+   url:"https://cardosystems.com/products/packtalk-edge"},
+
+  {brand:"Cardo", model:"Packtalk Neo", protocol:"dmc2", version:"DMC 2nd gen", riders:"15",
+   range:"1.6 km / 1 mi", talkMesh:"13 hr", talkBt:"13 hr", charge:"1.5–2 hr", fast:"20 min → 2 hr talk",
+   audio:"JBL 40 mm", ip:"IP67", mount:"Clamp", price:251.95, list:359.95,
+   note:"Full Cardo mesh at the lowest price in the range. No magnetic mount, so you pull the whole bracket off the helmet to charge it.",
+   url:"https://cardosystems.com/products/packtalk-neo"},
+
+  {brand:"Cardo", model:"Packtalk Edge ORV", protocol:"dmc2", version:"DMC 2nd gen", riders:"15",
+   range:"1.6 km / 1 mi", talkMesh:"13 hr", talkBt:"13 hr", charge:"1.5–2 hr", fast:"20 min → 2 hr talk",
+   audio:"JBL 40 mm", ip:"IP67", mount:"Handlebar remote", price:null, list:null,
+   note:"Built for UTV, ATV and snowmobile — bar-mounted controls you can work with heavy gloves on.",
+   url:"https://cardosystems.com/products/packtalk-edge-orv"},
+
+  {brand:"Cardo", model:"Freecom 4X", protocol:"bt", version:"Bluetooth 5.2", riders:"4",
+   range:"1.2 km / 0.75 mi", talkMesh:"—", talkBt:"13 hr", charge:"Check spec", fast:"Check spec",
+   audio:"JBL 40 mm", ip:"Check spec", mount:"Clamp", price:220.95, list:314.95,
+   note:"Top of Cardo's Bluetooth line. Excellent audio and voice control, but a fixed pairing chain instead of mesh.",
+   url:"https://cardosystems.com/products/freecom-4x"},
+
+  {brand:"Cardo", model:"Freecom 2X", protocol:"bt", version:"Bluetooth 5.2", riders:"2",
+   range:"0.5 km / 0.3 mi", talkMesh:"—", talkBt:"13 hr", charge:"Check spec", fast:"Check spec",
+   audio:"JBL 40 mm", ip:"Check spec", mount:"Clamp", price:178.95, list:254.95,
+   note:"Rider and passenger. Nothing more, nothing less, and priced accordingly.",
+   url:"https://cardosystems.com/products/freecom-2x"},
+
+  {brand:"Cardo", model:"Spirit HD", protocol:"bt", version:"Bluetooth 5.2", riders:"2",
+   range:"Check spec", talkMesh:"—", talkBt:"13 hr", charge:"Check spec", fast:"Check spec",
+   audio:"HD 40 mm", ip:"Check spec", mount:"Clamp", price:179.95, list:null,
+   note:"Entry price, honest performance. Upgraded speakers over the base Spirit.",
+   url:"https://cardosystems.com/products/spirit-hd"},
+
+  {brand:"Cardo", model:"Spirit", protocol:"bt", version:"Bluetooth 5.2", riders:"2",
+   range:"Check spec", talkMesh:"—", talkBt:"13 hr", charge:"Check spec", fast:"Check spec",
+   audio:"Standard", ip:"Check spec", mount:"Clamp", price:109.95, list:null,
+   note:"The cheapest way to stop shouting at your passenger.",
+   url:"https://cardosystems.com/products/spirit"},
+
+  /* ---------------- SENA ---------------- */
+  {brand:"Sena", model:"60S EVO", protocol:"senaMesh", version:"Mesh 3.0", riders:"24 group / unlimited open",
+   range:"2 km / 1.2 mi", talkMesh:"19 hr", talkBt:"27 hr", charge:"1.5 hr", fast:"Check spec",
+   audio:"Sound by Bose", ip:"IPX7", mount:"Clamp", price:459.00, list:null,
+   note:"Newest flagship. Bose audio, Bluetooth 5.3, and WAVE — a cellular channel with no range limit at all. Limited lifetime warranty. Runs both Mesh 3.0 and 2.0 for backward compatibility.",
+   url:"https://store-us.sena.com/products/60s-evo"},
+
+  {brand:"Sena", model:"60S", protocol:"senaMesh", version:"Mesh 3.0", riders:"24 group / unlimited open",
+   range:"2 km / 1.2 mi", talkMesh:"16 hr", talkBt:"22 hr", charge:"1.5 hr", fast:"20 min → 3.5 hr mesh",
+   audio:"Harman Kardon", ip:"IPX7", mount:"Clamp / jog dial", price:439.00, list:null,
+   note:"The Harman Kardon version of the flagship, with WAVE. Stock comes and goes on Sena's own store.",
+   url:"https://store-us.sena.com/products/60s"},
+
+  {brand:"Sena", model:"50S", protocol:"senaMesh", version:"Mesh 3.0", riders:"24 group / unlimited open",
+   range:"2 km / 1.2 mi", talkMesh:"13 hr", talkBt:"16 hr", charge:"2.5 hr", fast:"20 min → 2 hr",
+   audio:"Harman Kardon", ip:"Check spec", mount:"Clamp / jog dial", price:284.25, list:379.00,
+   note:"Best value in Sena mesh — same network as the flagship at well under half the price. Jog dial is easy to use, less so with heavy winter gloves.",
+   url:"https://store-us.sena.com/products/50s-10"},
+
+  {brand:"Sena", model:"50R", protocol:"senaMesh", version:"Mesh 3.0", riders:"24 group / unlimited open",
+   range:"2 km / 1.2 mi", talkMesh:"11 hr", talkBt:"13 hr", charge:"2.5 hr", fast:"20 min → 6 hr BT / 3.5 hr mesh",
+   audio:"Harman Kardon", ip:"Check spec", mount:"Slim clamp", price:281.25, list:375.00,
+   note:"Low-profile 50S with button controls instead of a jog dial — better in gloves. Shortest talk time of the 50 series, but the best fast charge of any unit here.",
+   url:"https://store-us.sena.com/products/50r-02"},
+
+  {brand:"Sena", model:"50C", protocol:"senaMesh", version:"Mesh 3.0", riders:"24 group / unlimited open",
+   range:"2 km / 1.2 mi", talkMesh:"Check spec", talkBt:"Check spec", charge:"Check spec", fast:"Check spec",
+   audio:"Harman Kardon", ip:"Check spec", mount:"Clamp", price:449.25, list:599.00,
+   note:"Mesh plus a built-in 4K camera. One device on the helmet instead of two, which is the whole argument for it.",
+   url:"https://store-us.sena.com/products/50c-01"},
+
+  {brand:"Sena", model:"Spider X Slim", protocol:"senaMesh", version:"Mesh 3.0", riders:"24 group / unlimited open",
+   range:"1.6 km / 1 mi", talkMesh:"11 hr", talkBt:"—", charge:"Check spec", fast:"Check spec",
+   audio:"Standard", ip:"Check spec", mount:"Ultra-slim, separate battery", price:299.00, list:null,
+   note:"The thinnest unit made — the battery splits into its own pack so the module sits flat against the shell. Mesh only, with no Bluetooth intercom at all, so it can't reach a Bluetooth-only rider.",
+   url:"https://store-us.sena.com/products/spider-x-slim"},
+
+  {brand:"Sena", model:"Spider ST1", protocol:"senaMesh", version:"Mesh 3.0", riders:"24 group / unlimited open",
+   range:"1.6 km / 1 mi", talkMesh:"11 hr", talkBt:"Check spec", charge:"Check spec", fast:"Check spec",
+   audio:"Standard", ip:"Check spec", mount:"Clamp / jog dial", price:179.25, list:239.00,
+   note:"Cheapest door into Sena mesh. Nine channels let a big club ride split into sub-groups — leaders on one, sweep on another.",
+   url:"https://store-us.sena.com/products/spider-st1-10"},
+
+  {brand:"Sena", model:"Spider RT1", protocol:"senaMesh", version:"Mesh 3.0", riders:"24 group / unlimited open",
+   range:"1.6 km / 1 mi", talkMesh:"Check spec", talkBt:"Check spec", charge:"Check spec", fast:"Check spec",
+   audio:"Standard", ip:"Check spec", mount:"Low-profile clamp", price:179.25, list:239.00,
+   note:"Same mesh as the ST1 in a low-profile body with button controls.",
+   url:"https://store-us.sena.com/products/spider-rt1-01"},
+
+  {brand:"Sena", model:"30K", protocol:"senaMesh", version:"Mesh 3.0", riders:"16",
+   range:"1.6 km / 1 mi", talkMesh:"8 hr", talkBt:"Check spec", charge:"Check spec", fast:"Check spec",
+   audio:"HD speakers", ip:"Check spec", mount:"Clamp / jog dial", price:239.25, list:319.00,
+   note:"Older generation but still running current mesh firmware. Only worth it at the sale price — the Spider ST1 does more for less.",
+   url:"https://store-us.sena.com/products/30k-03"},
+
+  {brand:"Sena", model:"Vortex", protocol:"bt", version:"Bluetooth", riders:"Check spec",
+   range:"Check spec", talkMesh:"—", talkBt:"Check spec", charge:"Check spec", fast:"Check spec",
+   audio:"Standard", ip:"Check spec", mount:"Check spec", price:189.00, list:null,
+   note:"New Bluetooth unit in Sena's lineup.",
+   url:"https://store-us.sena.com/products/vortex"},
+
+  {brand:"Sena", model:"SF4", protocol:"bt", version:"Bluetooth", riders:"4",
+   range:"1.2 km / 0.75 mi", talkMesh:"—", talkBt:"13 hr", charge:"Check spec", fast:"Check spec",
+   audio:"Standard", ip:"Check spec", mount:"Clamp", price:171.75, list:229.00,
+   note:"Long Bluetooth range for the money, and it handles four riders.",
+   url:"https://store-us.sena.com/products/sf4"},
+
+  {brand:"Sena", model:"5S", protocol:"bt", version:"Bluetooth", riders:"4",
+   range:"Check spec", talkMesh:"—", talkBt:"11 hr", charge:"Check spec", fast:"Check spec",
+   audio:"Harman Kardon", ip:"Check spec", mount:"Clamp", price:126.75, list:169.00,
+   note:"Harman Kardon audio at a Bluetooth price. Strong value for a pair who don't need mesh.",
+   url:"https://store-us.sena.com/products/5s-10"},
+
+  {brand:"Sena", model:"5R", protocol:"bt", version:"Bluetooth", riders:"2",
+   range:"Check spec", talkMesh:"—", talkBt:"Check spec", charge:"Check spec", fast:"Check spec",
+   audio:"HD speakers", ip:"Check spec", mount:"Clamp", price:104.25, list:139.00,
+   note:"Two-way only. Rider and passenger, done.",
+   url:"https://store-us.sena.com/products/5r-01"}
+];
+
+const $ = s => document.querySelector(s);
+const fmt = n => n === null ? "See site" : "$" + n.toFixed(2).replace(/\.00$/,"");
+
+/* ---------- compatibility ---------- */
+function compat(a,b){
+  if(a.protocol==="dmc2" && b.protocol==="dmc2")
+    return {level:"full",label:"Full mesh",
+      head:"Yes — full mesh, no setup headaches",
+      body:"Both run Cardo's second-generation Dynamic Mesh. Group them once and they find each other every ride after that. Riders drop out and rejoin without anyone touching a button.",
+      linkLabel:"Dynamic Mesh"};
+
+  if(a.protocol==="senaMesh" && b.protocol==="senaMesh"){
+    if(a.version===b.version)
+      return {level:"full",label:"Full mesh",
+        head:"Yes — full mesh, same version",
+        body:"Both units run "+a.version+". Open Mesh or Group Mesh, self-healing, no pairing chain to rebuild at the gas stop.",
+        linkLabel:a.version};
+    return {level:"partial",label:"Version mismatch",
+      head:"Yes, but you both have to drop to the older version",
+      body:"Sena's Mesh 3.0 and Mesh 2.0 don't speak to each other. The newer unit can run in 2.0 mode so the group works, but everyone loses the 3.0 improvements. Check whether a firmware update brings the older unit up first.",
+      linkLabel:"Version conflict"};
+  }
+
+  if(a.protocol==="bt" && b.protocol==="bt")
+    return {level:"partial",label:"Bluetooth only",
+      head:"Yes — over Bluetooth, in a fixed chain",
+      body:"Pair them directly and they'll work, across brands too. The catch is the chain: if a rider in the middle drops out or shuts down, everyone behind them goes silent until it's rebuilt by hand.",
+      linkLabel:"Bluetooth intercom"};
+
+  const meshOne = a.protocol!=="bt" ? a : b;
+  const btOne   = a.protocol==="bt" ? a : b;
+
+  if(a.protocol!=="bt" && b.protocol!=="bt")
+    return {level:"partial",label:"Bluetooth bridge",
+      head:"Only over Bluetooth — the two mesh networks won't join",
+      body:"Cardo's DMC and Sena's Mesh are closed to each other. You can still connect the two units over universal Bluetooth intercom for a two-way conversation. On a Cardo Packtalk you can bridge one Bluetooth rider into an existing mesh group, which is the usual workaround when one person in the crew runs the other brand.",
+      linkLabel:"Bluetooth only"};
+
+  if(meshOne.model==="Spider X Slim")
+    return {level:"none",label:"No connection",
+      head:"No — the Spider X Slim is mesh-only",
+      body:"It has no Bluetooth intercom at all, so there's no path to a Bluetooth-only unit. To ride together, the "+btOne.brand+" "+btOne.model+" would need to be replaced with a Sena mesh unit.",
+      linkLabel:"No path"};
+
+  return {level:"partial",label:"Bluetooth only",
+    head:"Yes — over Bluetooth, two riders at a time",
+    body:"The "+meshOne.brand+" "+meshOne.model+" falls back to universal Bluetooth intercom to reach the "+btOne.brand+" "+btOne.model+". You get the conversation, not the mesh. On a Cardo Packtalk the Bluetooth rider can be bridged into a mesh group as a guest.",
+    linkLabel:"Bluetooth intercom"};
+}
+
+function renderVerdict(){
+  const a=PRODUCTS[+$("#unitA").value], b=PRODUCTS[+$("#unitB").value], r=compat(a,b);
+  const cls={full:"b-full",partial:"b-part",none:"b-none"}[r.level];
+  const lcls={full:"on",partial:"weak",none:"off"}[r.level];
+  $("#verdict").innerHTML=`
+    <div class="verdict-head"><span class="badge ${cls}">${r.label}</span><h3>${r.head}</h3></div>
+    <div class="diagram"><span class="node">${a.model}</span><span class="link ${lcls}"></span><span class="node">${b.model}</span></div>
+    <div class="linklabel">${r.linkLabel}</div>
+    <p>${r.body}</p>`;
+}
+
+/* ---------- finder ---------- */
+const QUESTIONS=[
+  {key:"group",label:"How many of you ride together?",opts:[{v:"two",t:"Two of us"},{v:"small",t:"Three to six"},{v:"club",t:"Big group"}]},
+  {key:"budget",label:"What are you looking to spend, per unit?",opts:[{v:"low",t:"Under $200"},{v:"mid",t:"$200 – $350"},{v:"high",t:"Whatever it takes"}]},
+  {key:"brand",label:"Is your group already on a brand?",opts:[{v:"any",t:"No, starting fresh"},{v:"Cardo",t:"Cardo"},{v:"Sena",t:"Sena"}]}
+];
+const answers={group:"small",budget:"mid",brand:"any"};
+
+function renderFinder(){
+  $("#finder").innerHTML=QUESTIONS.map(q=>`
+    <div class="q"><span>${q.label}</span>
+      <div class="opts" role="group" aria-label="${q.label}">
+        ${q.opts.map(o=>`<button class="opt" type="button" data-k="${q.key}" data-v="${o.v}" aria-pressed="${answers[q.key]===o.v}">${o.t}</button>`).join("")}
+      </div>
+    </div>`).join("");
+  $("#finder").querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    answers[b.dataset.k]=b.dataset.v; renderFinder(); renderPicks();
+  }));
+}
+
+function renderPicks(){
+  const cap={low:200,mid:350,high:99999}[answers.budget];
+  const needMesh=answers.group!=="two";
+  let list=PRODUCTS.filter(p=>p.price!==null && p.price<=cap);
+  if(answers.brand!=="any") list=list.filter(p=>p.brand===answers.brand);
+  if(needMesh){ const m=list.filter(p=>p.protocol!=="bt"); if(m.length) list=m; }
+  list=list.sort((a,b)=>b.price-a.price).slice(0,3);
+
+  if(!list.length){
+    $("#picks").innerHTML=`<div class="pick"><h3>Nothing fits that combination</h3>
+      <p class="why">Mesh systems start around $180 on sale. To keep three or more riders on one self-healing network, either raise the budget or accept a Bluetooth chain that needs rebuilding every time someone drops off.</p></div>`;
+    return;
+  }
+  const reason=p=>{
+    if(needMesh&&p.protocol!=="bt") return "Mesh network — the group heals itself when a rider drops out. "+p.note;
+    if(!needMesh&&p.protocol==="bt") return "Bluetooth is all two riders need. "+p.note;
+    return p.note;
+  };
+  $("#picks").innerHTML=list.map(p=>`
+    <div class="pick">
+      <div class="top"><h3>${p.brand} ${p.model}</h3>
+        <span class="price">${p.list?`<span class="was">${fmt(p.list)}</span>`:""}${fmt(p.price)}</span></div>
+      <p class="why">${reason(p)}</p>
+      <a class="cta" href="${p.url}" rel="nofollow sponsored">Check current price</a>
+    </div>`).join("");
+}
+
+/* ---------- table ---------- */
+let filter="all";
+function renderFilters(){
+  const fs=[["all","Everything"],["mesh","Mesh only"],["bt","Bluetooth only"],["deal","On sale"],["Cardo","Cardo"],["Sena","Sena"]];
+  $("#filters").innerHTML=fs.map(([v,t])=>`<button class="opt" type="button" data-f="${v}" aria-pressed="${filter===v}">${t}</button>`).join("");
+  $("#filters").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+    filter=b.dataset.f; renderFilters(); renderTable();
+  }));
+}
+
+function specRow(p){
+  const s=(label,val)=> val && val!=="—" ? `<div class="spec"><dt>${label}</dt><dd>${val}</dd></div>` : "";
+  return `
+    <p class="note">${p.note}</p>
+    <dl class="specs">
+      ${s("Talk time, mesh",p.talkMesh)}
+      ${s("Talk time, Bluetooth",p.talkBt)}
+      ${s("Full charge",p.charge)}
+      ${s("Fast charge",p.fast)}
+      ${s("Audio",p.audio)}
+      ${s("Waterproofing",p.ip)}
+      ${s("Mount",p.mount)}
+    </dl>
+    <a class="cta" href="${p.url}" rel="nofollow sponsored">Check current price</a>`;
+}
+
+function renderTable(){
+  const rows=PRODUCTS.filter(p=>
+    filter==="all"  ? true :
+    filter==="mesh" ? p.protocol!=="bt" :
+    filter==="bt"   ? p.protocol==="bt" :
+    filter==="deal" ? p.list!==null :
+    p.brand===filter
+  ).sort((a,b)=>(b.price??0)-(a.price??0));
+
+  $("#tbody").innerHTML=rows.map((p,i)=>`
+    <tr class="row" data-i="${i}" tabindex="0" role="button" aria-expanded="false">
+      <td><span class="model">${p.model}</span><span class="brand">${p.brand}</span></td>
+      <td><span class="tag ${p.protocol==="bt"?"t-bt":"t-mesh"}">${p.version}</span></td>
+      <td>${p.riders}</td>
+      <td>${p.range}</td>
+      <td class="price">${p.list?`<span class="was">${fmt(p.list)}</span>`:""}${fmt(p.price)}
+        ${p.list?`<br><span class="tag t-deal">On sale</span>`:""}</td>
+      <td><span class="chev" aria-hidden="true"></span></td>
+    </tr>
+    <tr class="detail" data-d="${i}" hidden><td colspan="6">${specRow(p)}</td></tr>`).join("");
+
+  $("#tbody").querySelectorAll("tr.row").forEach(tr=>{
+    const toggle=()=>{
+      const d=$(`tr.detail[data-d="${tr.dataset.i}"]`);
+      const open=tr.getAttribute("aria-expanded")==="true";
+      tr.setAttribute("aria-expanded",String(!open));
+      d.hidden=open;
+    };
+    tr.addEventListener("click",toggle);
+    tr.addEventListener("keydown",e=>{
+      if(e.key==="Enter"||e.key===" "){ e.preventDefault(); toggle(); }
+    });
+  });
+}
+
+/* ---------- init ---------- */
+const opts=PRODUCTS.map((p,i)=>`<option value="${i}">${p.brand} ${p.model}</option>`).join("");
+$("#unitA").innerHTML=opts; $("#unitB").innerHTML=opts;
+$("#unitA").value=1; $("#unitB").value=10;
+$("#unitA").addEventListener("change",renderVerdict);
+$("#unitB").addEventListener("change",renderVerdict);
+renderVerdict(); renderFinder(); renderPicks(); renderFilters(); renderTable();
+</script>
+</body>
+</html>
