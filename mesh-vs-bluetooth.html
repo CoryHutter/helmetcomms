@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<title>Mesh vs Bluetooth Motorcycle Intercoms: Which Do You Need?</title>
+<meta name="description" content="Mesh costs roughly double. Here is exactly when it is worth it, when Bluetooth is the smarter buy, and the battery cost nobody mentions.">
+<style>
+:root{
+  --paper:#eceef1; --card:#f8f9fa; --ink:#14181d; --ink-soft:#5c6672; --rule:#d3d8de;
+  --mesh:#146b66; --mesh-bg:#dceceb; --bt:#2b4fa8; --bt-bg:#dde3f3;
+  --signal:#c9432a; --warn-bg:#f7e6df; --deal:#8a5a00; --deal-bg:#f7eed6;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.6}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;font-stretch:105%;line-height:1.08;margin:0}
+h1{font-weight:800;font-size:clamp(1.9rem,6vw,3rem);letter-spacing:-.02em}
+h2{font-weight:700;font-size:clamp(1.3rem,4vw,1.7rem);letter-spacing:-.015em;margin-top:2em}
+h3{font-weight:600;font-size:1.05rem;margin-top:1.6em}
+p{margin:.7em 0}
+a{color:var(--signal)}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px}
+.masthead{padding:22px 0 0}
+.mark{font-family:Archivo;font-weight:800;font-size:1.05rem;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.mark span{color:var(--signal)}
+nav{border-bottom:1px solid var(--rule);margin-top:14px;padding-bottom:12px;display:flex;gap:18px;flex-wrap:wrap;font-size:.88rem}
+nav a{color:var(--ink-soft);text-decoration:none;font-weight:500}
+nav a:hover,nav a[aria-current="page"]{color:var(--signal)}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+article{padding:34px 0 10px}
+article p,article ul{max-width:66ch}
+.lede{color:var(--ink-soft);font-size:1.08rem;margin-top:14px;max-width:62ch}
+.answer{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--signal);padding:18px 20px;margin:28px 0;border-radius:2px}
+.answer h2{margin:0 0 .3em;font-size:1.05rem}
+.answer p{margin:0;max-width:62ch}
+ul{padding-left:1.15em}
+li{margin:.45em 0}
+.tbl{overflow-x:auto;border:1px solid var(--rule);background:var(--card);margin:22px 0}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.9rem}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:Archivo;font-weight:600;font-size:.8rem;color:var(--ink-soft);background:#fff}
+tbody tr:last-child td{border-bottom:0}
+.tag{font-size:.72rem;font-weight:600;padding:2px 7px;border-radius:2px;white-space:nowrap}
+.t-mesh{background:var(--mesh-bg);color:var(--mesh)}
+.t-bt{background:var(--bt-bg);color:var(--bt)}
+.cta{display:inline-block;background:var(--signal);color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;padding:11px 18px;border-radius:2px;margin-top:6px}
+.callout{background:var(--warn-bg);border:1px solid #e6c9bd;padding:14px 16px;border-radius:2px;font-size:.92rem;margin:24px 0;max-width:66ch}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:20px}
+@media(max-width:620px){.split{grid-template-columns:1fr}}
+.col.mesh h3{color:var(--mesh);margin-top:0}
+.col.bt h3{color:var(--bt);margin-top:0}
+.col p,.col ul{font-size:.95rem;color:var(--ink-soft)}
+footer{border-top:1px solid var(--rule);margin-top:46px;padding:26px 0 60px;font-size:.85rem;color:var(--ink-soft)}
+footer p{max-width:66ch}
+</style>
+</head>
+<body>
+<header class="wrap masthead">
+  <a class="mark" href="index.html">HELMET<span>COMMS</span></a>
+  <nav>
+    <a href="index.html">Compare all</a>
+    <a href="cardo-vs-sena.html">Cardo vs Sena</a>
+    <a href="mesh-vs-bluetooth.html" aria-current="page">Mesh vs Bluetooth</a>
+    <a href="cardo-sena-compatibility.html">Cardo + Sena together</a>
+  </nav>
+</header>
+<main class="wrap">
+<article>
+  <h1>Mesh or Bluetooth? The only spec that changes how a group ride feels</h1>
+  <p class="lede">Mesh costs roughly double. Whether that's money well spent comes down to one number: how many people you ride with.</p>
+
+  <div class="answer">
+    <h2>The short version</h2>
+    <p>Two riders, including a passenger: buy Bluetooth and spend the savings elsewhere. Three or more: buy mesh. That's genuinely the whole decision.</p>
+  </div>
+
+  <h2>What Bluetooth intercom actually does</h2>
+  <p>Bluetooth units pair to each other in a fixed chain. Rider one connects to rider two, rider two connects to rider three, and so on down the line. Each unit knows exactly who it's talking to and holds that connection.</p>
+  <p>It works fine right up until somebody in the middle drops out. When rider two falls behind, stops for fuel, or their unit dies, everyone behind them goes silent. The chain is broken and it doesn't fix itself. Somebody has to pull over and rebuild the pairing by hand.</p>
+  <p>With two people this basically never comes up. With five it comes up constantly, and after the third gas station you'll stop bothering.</p>
+
+  <h2>What mesh does differently</h2>
+  <p>In a mesh network every unit is also a relay. There's no chain and no fixed order — the network works out its own routing and reworks it continuously as riders move around.</p>
+  <p>When somebody drops out, the network closes the gap by itself. When they come back into range, they rejoin by themselves. Nobody stops, nobody re-pairs, nobody presses anything.</p>
+  <p>There's a second benefit that's easy to miss. Because riders in the middle pass the signal along, effective range grows with group size. Two riders on mesh get roughly the same range as two on Bluetooth. Eight riders spread out along a road can cover several times that, because each bike is a repeater.</p>
+
+  <div class="split">
+    <div class="col mesh">
+      <h3>Mesh</h3>
+      <ul>
+        <li>Self-healing — no re-pairing at the gas stop</li>
+        <li>Range grows with the group</li>
+        <li>Riders join and leave freely</li>
+        <li>Roughly double the price</li>
+        <li>Only talks to the same brand's mesh</li>
+        <li>Uses noticeably more battery</li>
+      </ul>
+    </div>
+    <div class="col bt">
+      <h3>Bluetooth</h3>
+      <ul>
+        <li>Perfect for two riders</li>
+        <li>Works across brands</li>
+        <li>Half the price</li>
+        <li>Longer battery life</li>
+        <li>Fixed chain — one dropout silences everyone downstream</li>
+        <li>Rebuilding the chain means stopping</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>The battery cost nobody mentions</h2>
+  <p>Mesh draws more power than Bluetooth, and the gap is bigger than most people expect. Sena publishes both figures for each unit, and they aren't close.</p>
+
+  <div class="tbl">
+  <table>
+    <thead><tr><th>Unit</th><th>Bluetooth</th><th>Mesh</th><th>Difference</th></tr></thead>
+    <tbody>
+      <tr><td>Sena 60S EVO</td><td>27 hr</td><td>19 hr</td><td>8 hr less</td></tr>
+      <tr><td>Sena 60S</td><td>22 hr</td><td>16 hr</td><td>6 hr less</td></tr>
+      <tr><td>Sena 50S</td><td>16 hr</td><td>13 hr</td><td>3 hr less</td></tr>
+      <tr><td>Sena 50R</td><td>13 hr</td><td>11 hr</td><td>2 hr less</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Every one of those mesh numbers still comfortably outlasts a day of riding, so this isn't a reason to avoid mesh. It's a reason to read the right number when you compare units. If you ride in a mesh group, the Bluetooth figure on the box is not your battery life.</p>
+
+  <h2>Mixing brands: Bluetooth yes, mesh no</h2>
+  <p>Bluetooth intercom is a universal standard, so a Cardo will pair with a Sena over Bluetooth without any trouble.</p>
+  <p>Mesh is not universal. Cardo's Dynamic Mesh and Sena's Mesh Intercom are proprietary and closed to each other, and always have been. This is why the brand question and the mesh question end up tangled together — <a href="cardo-sena-compatibility.html">the full picture on running both brands is here</a>.</p>
+
+  <div class="callout"><strong>One trap worth knowing.</strong> Sena's Mesh 3.0 and Mesh 2.0 don't talk to each other either, even between two Sena units. The newer unit can drop back to 2.0 so the group works, but everybody loses the 3.0 improvements. Check firmware before a big group ride.</div>
+
+  <h2>When Bluetooth is genuinely the right answer</h2>
+  <p>Plenty of the internet will tell you mesh is simply better. For a lot of riders it isn't worth the money, and the honest cases for Bluetooth are:</p>
+  <ul>
+    <li><strong>Rider and passenger.</strong> There's no chain to break with two units on one bike. Mesh solves a problem you don't have.</li>
+    <li><strong>You and one regular riding partner.</strong> Same logic. Two units, one connection.</li>
+    <li><strong>You mostly want music and phone calls.</strong> Every unit here does Bluetooth audio and calls identically. If the intercom is secondary, buy on speaker quality and comfort instead.</li>
+    <li><strong>Your group is split across brands and staying that way.</strong> Bluetooth is your common language anyway, so paying for two incompatible mesh networks accomplishes nothing.</li>
+  </ul>
+
+  <h2>What it costs to skip mesh</h2>
+  <p>Roughly speaking, a decent Bluetooth unit runs $110–230 and a mesh unit runs $180–500. The cheapest way into mesh is currently Sena's Spider ST1 or Spider RT1, and Cardo's Packtalk Neo is the cheapest Cardo mesh.</p>
+  <p>Buying for two riders, the difference across the pair is real money — often enough to cover a set of tires. That's the trade you're actually making.</p>
+
+  <p style="margin-top:26px"><a class="cta" href="index.html">See which units are mesh and which aren't</a></p>
+</article>
+</main>
+<footer class="wrap">
+  <p>Specs come from manufacturer published data. Prices are manufacturer direct and were current as of the last update — promotions move fast, so check the live price before you buy.</p>
+  <p>Some links here are affiliate links. If you buy through one, we earn a commission at no extra cost to you. It doesn't change which systems we recommend.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<title>Can a Cardo Talk to a Sena? Yes, But Not in a Group</title>
+<meta name="description" content="Cardo and Sena connect over Bluetooth, two riders at a time, but never on mesh. What you get, what you lose, and the one unit that cannot connect at all.">
+<style>
+:root{
+  --paper:#eceef1; --card:#f8f9fa; --ink:#14181d; --ink-soft:#5c6672; --rule:#d3d8de;
+  --mesh:#146b66; --mesh-bg:#dceceb; --bt:#2b4fa8; --bt-bg:#dde3f3;
+  --signal:#c9432a; --warn-bg:#f7e6df; --deal:#8a5a00; --deal-bg:#f7eed6;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.6}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;font-stretch:105%;line-height:1.08;margin:0}
+h1{font-weight:800;font-size:clamp(1.9rem,6vw,3rem);letter-spacing:-.02em}
+h2{font-weight:700;font-size:clamp(1.3rem,4vw,1.7rem);letter-spacing:-.015em;margin-top:2em}
+h3{font-weight:600;font-size:1.05rem;margin-top:1.6em}
+p{margin:.7em 0}
+a{color:var(--signal)}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px}
+.masthead{padding:22px 0 0}
+.mark{font-family:Archivo;font-weight:800;font-size:1.05rem;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.mark span{color:var(--signal)}
+nav{border-bottom:1px solid var(--rule);margin-top:14px;padding-bottom:12px;display:flex;gap:18px;flex-wrap:wrap;font-size:.88rem}
+nav a{color:var(--ink-soft);text-decoration:none;font-weight:500}
+nav a:hover,nav a[aria-current="page"]{color:var(--signal)}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+article{padding:34px 0 10px}
+article p,article ul{max-width:66ch}
+.lede{color:var(--ink-soft);font-size:1.08rem;margin-top:14px;max-width:62ch}
+.answer{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--signal);padding:18px 20px;margin:28px 0;border-radius:2px}
+.answer h2{margin:0 0 .3em;font-size:1.05rem}
+.answer p{margin:0;max-width:62ch}
+ul{padding-left:1.15em}
+li{margin:.45em 0}
+.tbl{overflow-x:auto;border:1px solid var(--rule);background:var(--card);margin:22px 0}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.9rem}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:Archivo;font-weight:600;font-size:.8rem;color:var(--ink-soft);background:#fff}
+tbody tr:last-child td{border-bottom:0}
+.tag{font-size:.72rem;font-weight:600;padding:2px 7px;border-radius:2px;white-space:nowrap}
+.t-mesh{background:var(--mesh-bg);color:var(--mesh)}
+.t-bt{background:var(--bt-bg);color:var(--bt)}
+.cta{display:inline-block;background:var(--signal);color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;padding:11px 18px;border-radius:2px;margin-top:6px}
+.callout{background:var(--warn-bg);border:1px solid #e6c9bd;padding:14px 16px;border-radius:2px;font-size:.92rem;margin:24px 0;max-width:66ch}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:20px}
+@media(max-width:620px){.split{grid-template-columns:1fr}}
+.col.mesh h3{color:var(--mesh);margin-top:0}
+.col.bt h3{color:var(--bt);margin-top:0}
+.col p,.col ul{font-size:.95rem;color:var(--ink-soft)}
+footer{border-top:1px solid var(--rule);margin-top:46px;padding:26px 0 60px;font-size:.85rem;color:var(--ink-soft)}
+footer p{max-width:66ch}
+</style>
+</head>
+<body>
+<header class="wrap masthead">
+  <a class="mark" href="index.html">HELMET<span>COMMS</span></a>
+  <nav>
+    <a href="index.html">Compare all</a>
+    <a href="cardo-vs-sena.html">Cardo vs Sena</a>
+    <a href="mesh-vs-bluetooth.html">Mesh vs Bluetooth</a>
+    <a href="cardo-sena-compatibility.html" aria-current="page">Cardo + Sena together</a>
+  </nav>
+</header>
+<main class="wrap">
+<article>
+  <h1>Can a Cardo talk to a Sena?</h1>
+  <p class="lede">Yes — but not the way you're hoping, and not in a group. Here's exactly what you get, what you lose, and the one unit where the answer is a flat no.</p>
+
+  <div class="answer">
+    <h2>The short version</h2>
+    <p>Cardo and Sena connect over standard Bluetooth intercom, two riders at a time. They cannot join each other's mesh network, and no firmware update is going to change that. If three or more of you ride together regularly, standardise on one brand.</p>
+  </div>
+
+  <h2>Why the mesh networks are closed</h2>
+  <p>Cardo's Dynamic Mesh Communication and Sena's Mesh Intercom are two separate proprietary systems built by two competitors. They were never designed to interoperate and there's no industry standard forcing them to.</p>
+  <p>People wait for this to change. It hasn't in over a decade and there's no commercial reason for either company to open it up — mesh compatibility is precisely what keeps a riding group buying the same brand.</p>
+
+  <h2>What you actually get</h2>
+  <p>Both brands support universal Bluetooth intercom, which is a genuine cross-manufacturer standard. So a Packtalk and a 50S will connect and you'll have a clear conversation.</p>
+  <p>What you get:</p>
+  <ul>
+    <li>Two-way voice between the two units</li>
+    <li>Normal audio quality — this isn't a degraded connection</li>
+    <li>Music, phone and GPS on each unit as usual</li>
+  </ul>
+  <p>What you don't get:</p>
+  <ul>
+    <li><strong>Any mesh behaviour.</strong> No self-healing, no automatic rejoining. It's a fixed Bluetooth pairing with all the Bluetooth limitations.</li>
+    <li><strong>The group.</strong> This is a two-rider connection. You aren't adding a Sena rider to a five-man Cardo mesh and having it just work.</li>
+    <li><strong>Reliability at the edges.</strong> When the connection drops at range, it needs re-establishing, and on some pairings that means a button sequence rather than an automatic reconnect.</li>
+  </ul>
+
+  <h2>The Cardo bridge, and its one limit</h2>
+  <p>There's a workaround worth knowing. On a Cardo Packtalk you can bridge a Bluetooth-connected rider into an existing DMC mesh group as a guest. Practically: four riders on Packtalks run their normal mesh, and one of them also holds a Bluetooth connection to the Sena rider, who can then hear and be heard by the group.</p>
+  <p>It works. It's the standard answer when one person in an otherwise consistent crew runs the other brand.</p>
+  <p>It also has a weak point: the whole thing hangs off one rider's unit. If the Cardo doing the bridging rides out of range of the Sena, or shuts down, the guest drops off the group entirely. It's one rider, bridged through one other rider — not a second full member of the mesh.</p>
+
+  <div class="callout"><strong>The exception: Sena's Spider X Slim.</strong> It's a mesh-only unit with no Bluetooth intercom at all. That means there's no path to a Cardo whatsoever — not bridged, not paired, nothing. If anyone in your group runs a Cardo, the Spider X Slim is the wrong unit to buy.</div>
+
+  <h2>Sena units don't always talk to each other either</h2>
+  <p>Worth knowing before you assume same-brand means safe. Sena's Mesh 3.0 and Mesh 2.0 are not compatible with one another.</p>
+  <p>Newer units can drop back and run in 2.0 mode so a mixed group works, but everyone in the group loses the 3.0 improvements to run at the older standard. Sena has pushed Mesh 3.0 to a number of older models by firmware, so the fix is often just updating everyone's unit through the app before you leave.</p>
+  <p>Cardo's second-generation DMC units — the Packtalk Pro, Edge, Edge ORV and Neo — all run the same network, so this particular headache doesn't apply on that side.</p>
+
+  <h2>What to actually do about it</h2>
+  <h3>If you ride mostly with one other person</h3>
+  <p>Mixed brands is fine. Bluetooth intercom handles two riders well, and there's no chain to break. Buy whichever unit you prefer and don't think about it further.</p>
+
+  <h3>If you ride with a regular group of three or more</h3>
+  <p>Standardise. Agree on a brand and have everyone move to it as their current units age out. It doesn't need to happen all at once — the bridge trick covers the transition — but drifting into a permanently split group means permanently living with the workaround.</p>
+
+  <h3>If you're the one buying in to an established group</h3>
+  <p>Buy what they have. This overrides every review you'll read, including ours. A cheaper unit on the group's network beats a better unit that can't join it.</p>
+
+  <h3>If your group is already split down the middle</h3>
+  <p>Pick the brand the majority runs and let the minority migrate over time. In the meantime, make sure the person doing the bridging is someone who rides mid-pack rather than sweep or lead — the bridge depends on them staying in Bluetooth range of the odd rider out.</p>
+
+  <h2>Check your specific combination</h2>
+  <p>The tool on our comparison page covers every current Cardo and Sena unit and tells you exactly what you'll get from any pairing, including the version mismatches within Sena's own line.</p>
+
+  <p style="margin-top:26px"><a class="cta" href="index.html">Check your two units</a></p>
+</article>
+</main>
+<footer class="wrap">
+  <p>Specs come from manufacturer published data. Prices are manufacturer direct and were current as of the last update — promotions move fast, so check the live price before you buy.</p>
+  <p>Some links here are affiliate links. If you buy through one, we earn a commission at no extra cost to you. It doesn't change which systems we recommend.</p>
+</footer>
+</body>
+</html>

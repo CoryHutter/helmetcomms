@@ -27,10 +27,13 @@ a{color:var(--signal)}
 section{padding:52px 0;border-top:1px solid var(--rule)}
 section:first-of-type{border-top:0}
 .lede{color:var(--ink-soft);max-width:60ch;font-size:1.03rem}
-.masthead{padding:26px 0 6px}
-.mark{font-family:Archivo;font-weight:800;font-size:1.05rem;letter-spacing:-.01em}
+.masthead{padding:22px 0 0}
+.mark{font-family:Archivo;font-weight:800;font-size:1.05rem;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
 .mark span{color:var(--signal)}
-.hero{padding-top:26px}
+nav{border-bottom:1px solid var(--rule);margin-top:14px;padding-bottom:12px;display:flex;gap:18px;flex-wrap:wrap;font-size:.88rem}
+nav a{color:var(--ink-soft);text-decoration:none;font-weight:500}
+nav a:hover,nav a[aria-current="page"]{color:var(--signal)}
+.hero{padding-top:34px}
 .hero h1{max-width:15ch}
 .hero .lede{margin-top:14px}
 .checker{margin-top:30px;background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:22px}
@@ -72,8 +75,7 @@ table{border-collapse:collapse;width:100%;min-width:560px;font-size:.88rem}
 th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--rule);vertical-align:middle}
 th{font-family:Archivo;font-weight:600;font-size:.8rem;color:var(--ink-soft);background:#fff}
 tr.row{cursor:pointer}
-tr.row:hover td{background:#fff}
-tr.row[aria-expanded="true"] td{background:#fff}
+tr.row:hover td,tr.row[aria-expanded="true"] td{background:#fff}
 .chev{display:inline-block;width:9px;height:9px;border-right:2px solid var(--ink-soft);border-bottom:2px solid var(--ink-soft);transform:rotate(45deg);transition:transform .15s;margin-left:2px}
 tr.row[aria-expanded="true"] .chev{transform:rotate(-135deg)}
 @media(prefers-reduced-motion:reduce){.chev{transition:none}}
@@ -99,12 +101,22 @@ li{margin:.35em 0}
 footer{border-top:1px solid var(--rule);padding:30px 0 60px;font-size:.85rem;color:var(--ink-soft)}
 .note{background:var(--warn-bg);border:1px solid #e6c9bd;padding:12px 14px;border-radius:2px;font-size:.85rem;margin-top:18px}
 .hint{font-size:.82rem;color:var(--ink-soft);margin-top:12px}
+.reads{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:22px}
+.read{display:block;background:var(--card);border:1px solid var(--rule);padding:16px;border-radius:2px;text-decoration:none;color:var(--ink)}
+.read strong{display:block;font-family:Archivo;font-weight:600;margin-bottom:4px}
+.read span{font-size:.88rem;color:var(--ink-soft)}
 </style>
 </head>
 <body>
 
 <header class="wrap masthead">
-  <div class="mark">HELMET<span>COMMS</span></div>
+  <a class="mark" href="index.html">HELMET<span>COMMS</span></a>
+  <nav>
+    <a href="index.html" aria-current="page">Compare all</a>
+    <a href="cardo-vs-sena.html">Cardo vs Sena</a>
+    <a href="mesh-vs-bluetooth.html">Mesh vs Bluetooth</a>
+    <a href="cardo-sena-compatibility.html">Cardo + Sena together</a>
+  </nav>
 </header>
 
 <main>
@@ -165,7 +177,7 @@ footer{border-top:1px solid var(--rule);padding:30px 0 60px;font-size:.85rem;col
       </ul>
     </div>
   </div>
-  <div class="note"><strong>The mixed-brand reality:</strong> a Cardo and a Sena can connect, but only over Bluetooth, and only two at a time. Neither one joins the other's mesh. If your regular group has already committed to a brand, that decision is effectively made for you.</div>
+  <div class="note"><strong>The mixed-brand reality:</strong> a Cardo and a Sena can connect, but only over Bluetooth, and only two at a time. Neither one joins the other's mesh. If your regular group has already committed to a brand, that decision is effectively made for you. <a href="cardo-sena-compatibility.html">Full breakdown here.</a></div>
 </section>
 
 <section class="wrap">
@@ -186,6 +198,24 @@ footer{border-top:1px solid var(--rule);padding:30px 0 60px;font-size:.85rem;col
     <li><strong>Mount type.</strong> Clamp mounts need a gap between shell and liner, which some tight-fitting helmets don't have. Adhesive mounts work anywhere but commit you to that helmet.</li>
     <li><strong>Built-in comms cavity.</strong> Shoei, HJC, Schuberth and others have a dedicated pocket that only accepts a matched unit — Cardo's Packtalk-S and 4X-S for Shoei, Sena's SRL2. Cleaner install, no universal option.</li>
   </ul>
+</section>
+
+<section class="wrap">
+  <h2>Read next</h2>
+  <div class="reads">
+    <a class="read" href="cardo-vs-sena.html">
+      <strong>Cardo vs Sena</strong>
+      <span>The head-to-head on mesh, audio, controls and price — and why your group usually decides for you.</span>
+    </a>
+    <a class="read" href="mesh-vs-bluetooth.html">
+      <strong>Mesh vs Bluetooth</strong>
+      <span>Mesh costs roughly double. When it's worth it, and when Bluetooth is the smarter buy.</span>
+    </a>
+    <a class="read" href="cardo-sena-compatibility.html">
+      <strong>Can a Cardo talk to a Sena?</strong>
+      <span>Yes, over Bluetooth, two riders at a time. Never on mesh. Here's the workaround.</span>
+    </a>
+  </div>
 </section>
 </main>
 
